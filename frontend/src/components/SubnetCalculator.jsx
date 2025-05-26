@@ -70,8 +70,7 @@ const SubnetCalculator = () => {
   };
 
   return (
-    <div className="container">
-      <h1>IP Subnet Calculator</h1>
+    <div className="container mb-12">
 
       <div className="tabs">
         <button
