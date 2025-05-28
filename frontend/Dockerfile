@@ -1,43 +1,28 @@
-FROM node:16 as build-stage
+# Stage 1: Builder stage
+FROM node:20 AS builder
 
 WORKDIR /app
 
-COPY package.json yarn.lock ./
-RUN yarn install
+# Copy package files first for better caching
+COPY package.json package-lock.json ./
 
+# Install dependencies
+RUN npm config set strict-ssl false && \
+    npm ci --force && \
+    npm install -g @angular/cli
+
+# Copy remaining files
 COPY . .
-RUN yarn build
 
+# Build the application
+RUN npm run build
+
+# Stage 2: Runtime stage
 FROM nginx:alpine
 
-COPY --from=build-stage /app/build /usr/share/nginx/html
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+# Copy built files from builder
+COPY --from=builder /app/dist /usr/share/nginx/html
 
+# Expose port
 EXPOSE 80
-
 CMD ["nginx", "-g", "daemon off;"]
-
-
-
-
-# Use Node.js official image
-#FROM node:18
-
-# Set the working directory
-#WORKDIR /app
-
-# Copy package.json and install dependencies
-#COPY package.json package-lock.json ./
-#RUN npm install
-
-# Copy the entire frontend code
-#COPY . .
-
-# Build the React app
-#RUN npm run build
-
-# Expose the frontend port
-#EXPOSE 3000
-
-# Serve the React app
-#CMD ["npx", "serve", "-s", "build", "-l", "3000"]

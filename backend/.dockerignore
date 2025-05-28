@@ -1,0 +1,28 @@
+# Python specific ignores
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+env
+venv
+.venv
+.env
+
+# Ignore local development files
+*.log
+logs
+
+# Ignore environment and IDE files
+.env
+.env.local
+.vscode
+.idea
+
+# Ignore git files
+.git
+.gitignore
+
+# Ignore OS files
+.DS_Store
+Thumbs.db
