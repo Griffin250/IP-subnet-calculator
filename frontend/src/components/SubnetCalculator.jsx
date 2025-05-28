@@ -45,7 +45,7 @@ const SubnetCalculator = () => {
 
     try {
       const response = await fetch(
-        "http://localhost:8000/calculate-subnetting",
+        "https://ipsc-backend.onrender.com/calculate-subnetting",
         {
           method: "POST",
           headers: {
