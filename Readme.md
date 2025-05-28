@@ -32,3 +32,9 @@ A web-based IP subnet calculator built with:
             - visit backend at http://localhost:8000
          
          # LIVE APP PREVIEW --> https://ipsc.onrender.com/
+
+
+# TO-FIX-LIST
+- nginx server files, index.html
+- backend hosting
+- 
